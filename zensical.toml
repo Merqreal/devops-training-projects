@@ -1,0 +1,52 @@
+[project]
+site_name = "DevOps Fieldwork"
+site_description = "Practical infrastructure assignments. Build, verify, explain."
+site_url = "https://merqreal.github.io/devops-training-projects/"
+repo_url = "https://github.com/Merqreal/devops-training-projects"
+docs_dir = "docs"
+site_dir = "site"
+extra_css = ["stylesheets/extra.css"]
+nav = [
+  { "Home" = "index.md" },
+  { "Getting started" = "getting-started.md" },
+  { "Projects" = [
+    { "Project catalog" = "projects/index.md" },
+    { "Kubernetes" = [
+      { "DEVOPS-001 · Self-Hosted Gitea Platform" = [
+        { "Assignment" = "projects/kubernetes/self-hosted-gitea/index.md" },
+        { "Milestones" = "projects/kubernetes/self-hosted-gitea/milestones.md" },
+        { "Verification & operations" = "projects/kubernetes/self-hosted-gitea/verification.md" },
+        { "Versions & upstream contracts" = "projects/kubernetes/self-hosted-gitea/versions.md" }
+      ] }
+    ] }
+  ] },
+  { "Standards" = "standards.md" },
+  { "Platform" = [
+    { "Architecture" = "platform/architecture.md" },
+    { "Roadmap" = "platform/roadmap.md" }
+  ] }
+]
+[project.theme]
+language = "en"
+features = ["navigation.sections", "navigation.expand", "navigation.path", "navigation.top", "search.highlight", "content.code.copy"]
+[[project.theme.palette]]
+scheme = "default"
+primary = "teal"
+accent = "teal"
+toggle.icon = "material/brightness-7"
+toggle.name = "Switch to dark mode"
+[[project.theme.palette]]
+scheme = "slate"
+primary = "teal"
+accent = "cyan"
+toggle.icon = "material/brightness-4"
+toggle.name = "Switch to light mode"
+[project.markdown_extensions]
+admonition = {}
+attr_list = {}
+md_in_html = {}
+toc.permalink = true
+pymdownx.highlight = { anchor_linenums = true }
+pymdownx.superfences.custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" }
+]
