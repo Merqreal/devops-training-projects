@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "id": "DEVOPS-002",
+  "title": "Replace with project title",
+  "version": "1.0.0",
+  "primary_domain": "kubernetes",
+  "domains": [
+    "kubernetes"
+  ],
+  "difficulty": "intermediate",
+  "estimated_effort": {
+    "min": 8,
+    "max": 16,
+    "unit": "hours"
+  },
+  "technologies": [
+    "Replace with mandatory technologies"
+  ],
+  "tags": [
+    "kubernetes"
+  ],
+  "prerequisites": {
+    "skills": [
+      "Replace with required knowledge"
+    ],
+    "tools": [
+      "Replace with workstation tools"
+    ],
+    "projects": []
+  },
+  "learning_objectives": [
+    "Replace with observable outcome"
+  ],
+  "status": "draft",
+  "content_path": "projects/kubernetes/replace-with-slug",
+  "pages": [
+    {
+      "title": "Assignment",
+      "file": "index.md"
+    }
+  ]
+}

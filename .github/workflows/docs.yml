@@ -1,0 +1,24 @@
+name: Documentation validation
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-docs.txt
+      - run: python -m pip install -r requirements-docs.txt
+      - run: python scripts/project_metadata.py --write
+      - name: Reject stale generated catalog
+        run: git diff --exit-code -- docs/projects/index.md
+      - run: python -m unittest discover -s tests
+      - run: python scripts/project_metadata.py
+      - run: zensical build --strict
+      - run: python scripts/validate_docs.py

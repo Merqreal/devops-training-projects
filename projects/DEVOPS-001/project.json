@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "id": "DEVOPS-001",
+  "title": "Self-Hosted Gitea Platform",
+  "version": "1.0.0",
+  "primary_domain": "kubernetes",
+  "domains": [
+    "kubernetes",
+    "infrastructure-as-code",
+    "databases",
+    "source-control"
+  ],
+  "difficulty": "intermediate",
+  "estimated_effort": {
+    "min": 12,
+    "max": 18,
+    "unit": "hours"
+  },
+  "technologies": [
+    "WSL2 Ubuntu",
+    "Docker",
+    "Kubernetes",
+    "kubectl",
+    "Terraform",
+    "Helm",
+    "Minikube",
+    "PostgreSQL",
+    "Gitea",
+    "Git"
+  ],
+  "tags": [
+    "kubernetes",
+    "terraform",
+    "helm",
+    "minikube",
+    "postgresql",
+    "gitea"
+  ],
+  "prerequisites": {
+    "skills": [
+      "Basic Git",
+      "Linux shell",
+      "Containers",
+      "YAML",
+      "TCP networking"
+    ],
+    "tools": [
+      "Windows with WSL2 Ubuntu",
+      "Docker available inside WSL2"
+    ],
+    "projects": []
+  },
+  "learning_objectives": [
+    "Explain local orchestration layers",
+    "Manage infrastructure declaratively",
+    "Integrate application and database",
+    "Verify data persistence",
+    "Operate and document the environment"
+  ],
+  "status": "active",
+  "content_path": "projects/kubernetes/self-hosted-gitea",
+  "pages": [
+    {
+      "title": "Assignment",
+      "file": "index.md"
+    },
+    {
+      "title": "Milestones",
+      "file": "milestones.md"
+    },
+    {
+      "title": "Verification & operations",
+      "file": "verification.md"
+    },
+    {
+      "title": "Versions & upstream contracts",
+      "file": "versions.md"
+    }
+  ]
+}
