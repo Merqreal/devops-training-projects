@@ -35,6 +35,11 @@ Intermediate · 12–18 hours · Terraform, Helm, Kubernetes, PostgreSQL
 
 Run a team Git platform on your workstation. Demonstrate repeatability, local access, and two distinct persistence boundaries.
 
+[**DEVOPS-002 — Repair, Build and Containerize a Java Application**](projects/build-and-release-engineering/java-inventory/index.md)
+Beginner · 4–6 hours · Java 17, Maven, Spring Boot, Docker, Docker Compose
+
+Diagnose an inherited build, containerize the Inventory Service, and prove recovery with logs, tests and health checks.
+
 ## How progress is assessed
 
 Completion means observable acceptance criteria, an understandable repository, and a technical review. Speed and optional features never replace the mandatory requirements. Read the [engineering standards](standards.md) before submitting.

@@ -4,6 +4,20 @@
 
 Projects are grouped by primary technical domain. Difficulty is a filterable metadata field, never a directory.
 
+## Build And Release Engineering
+
+| ID | Project | Difficulty | Effort | Lifecycle | Technologies |
+| --- | --- | --- | --- | --- | --- |
+| DEVOPS-002 | [Repair, Build and Containerize a Java Application](build-and-release-engineering/java-inventory/index.md) | beginner | 4–6 hours | active | Java 17, Maven, Spring Boot, Docker, Docker Compose |
+
+### DEVOPS-002 learning objectives
+
+- Diagnose Maven build failures using evidence
+- Build and test a Java application without changing source
+- Package and run a Java application in Docker
+- Verify health and document repeatable troubleshooting
+
+**Tags:** java, maven, spring-boot, docker, docker-compose, troubleshooting. **Domains:** build-and-release-engineering, containers.
 ## Kubernetes
 
 | ID | Project | Difficulty | Effort | Lifecycle | Technologies |

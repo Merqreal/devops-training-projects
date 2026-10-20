@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "id": "DEVOPS-002",
+  "title": "Repair, Build and Containerize a Java Application",
+  "version": "1.0.0",
+  "primary_domain": "build-and-release-engineering",
+  "domains": [
+    "build-and-release-engineering",
+    "containers"
+  ],
+  "difficulty": "beginner",
+  "estimated_effort": {
+    "min": 4,
+    "max": 6,
+    "unit": "hours"
+  },
+  "technologies": [
+    "Java 17",
+    "Maven",
+    "Spring Boot",
+    "Docker",
+    "Docker Compose"
+  ],
+  "tags": [
+    "java",
+    "maven",
+    "spring-boot",
+    "docker",
+    "docker-compose",
+    "troubleshooting"
+  ],
+  "prerequisites": {
+    "skills": [
+      "Basic Git",
+      "Linux shell",
+      "HTTP and JSON",
+      "Container fundamentals"
+    ],
+    "tools": [
+      "JDK 17",
+      "Docker Engine with Compose v2",
+      "Git",
+      "curl"
+    ],
+    "projects": []
+  },
+  "learning_objectives": [
+    "Diagnose Maven build failures using evidence",
+    "Build and test a Java application without changing source",
+    "Package and run a Java application in Docker",
+    "Verify health and document repeatable troubleshooting"
+  ],
+  "status": "active",
+  "content_path": "projects/build-and-release-engineering/java-inventory",
+  "pages": [
+    {
+      "title": "Assignment",
+      "file": "index.md"
+    }
+  ]
+}
