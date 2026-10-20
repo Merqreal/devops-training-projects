@@ -11,6 +11,11 @@ nav = [
   { "Getting started" = "getting-started.md" },
   { "Projects" = [
     { "Project catalog" = "projects/index.md" },
+    { "Build And Release Engineering" = [
+      { "DEVOPS-002 · Repair, Build and Containerize a Java Application" = [
+        { "Assignment" = "projects/build-and-release-engineering/java-inventory/index.md" }
+      ] }
+    ] },
     { "Kubernetes" = [
       { "DEVOPS-001 · Self-Hosted Gitea Platform" = [
         { "Assignment" = "projects/kubernetes/self-hosted-gitea/index.md" },

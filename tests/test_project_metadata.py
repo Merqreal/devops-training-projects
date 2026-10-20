@@ -99,6 +99,9 @@ class ProjectMetadataTests(unittest.TestCase):
             load_projects(self.root)
 
     def test_navigation_and_catalog_drift_fail(self):
+        # The real navigation contains every published assignment.
+        for definition in (ROOT / 'projects').glob('*/project.json'):
+            self.write(json.loads(definition.read_text()))
         shutil.copy(ROOT / 'zensical.toml', self.root / 'zensical.toml')
         projects = load_projects(self.root)
         path = self.root / 'docs/projects/index.md'
