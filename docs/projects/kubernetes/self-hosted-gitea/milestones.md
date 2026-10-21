@@ -82,3 +82,11 @@ Write a README covering architecture, prerequisites, deployment, configuration, 
 **Deliver:** complete separate solution repository following [standards](../../../standards.md), actual version inventory, sanitized evidence, and requirement-to-evidence checklist. Cite upstream sources and identify untested assumptions and limitations.
 
 **Accept when:** another engineer can reproduce and validate the environment from the README without undocumented mutations or your assistance, and you can explain every component and durability claim.
+
+### Final functional acceptance gate
+
+After all deployment and persistence tests, execute the [final functional verification](verification.md#final-functional-verification-mandatory) on the final configuration. Use a normal, non-administrator account in the browser to create a new repository, then clone, commit a file, and push from the local Git client. Confirm the same commit SHA and file content in the browser and in a fresh clone.
+
+**Deliver:** dated commands with exit statuses, credential-free repository URL, normal-user identity, commit SHA, file checksum, sanitized browser evidence, and any failed attempt with correlated server logs, diagnosis, correction, and successful retest.
+
+**Accept when:** every operation succeeds on the submitted configuration. An unresolved Git push failure prevents DEVOPS-001 completion even when Pods are Ready. This completes the original assignment; advanced availability work is not required.

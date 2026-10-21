@@ -2,6 +2,8 @@
 
 **Intermediate · 12–18 hours · Entirely local**
 
+**Assignment version 2.0.0:** adds an explicit final browser-to-Git acceptance gate and failure/retest evidence. The original workload estimate and infrastructure scope remain unchanged.
+
 ## Problem statement and business context
 
 Your development team needs a self-hosted Git platform. As its DevOps engineer, provide a reproducible environment on a Windows workstation with WSL2 Ubuntu. The team must create users and repositories, push and clone commits, and retain its work through ordinary pod failures. Another engineer must be able to operate it from your repository.
@@ -65,6 +67,8 @@ The [seven milestones](milestones.md) define the mandatory acceptance criteria. 
 ## Milestones and deliverables
 
 Complete all seven [milestones](milestones.md). Submit a separate Git repository containing Terraform configuration, Helm values or custom charts, bootstrap and safe cleanup scripts, validation procedures, README, Mermaid architecture, and actual sanitized persistence evidence. Include version locks and a criterion-to-evidence checklist.
+
+Before marking DEVOPS-001 complete, perform the [mandatory final functional verification](verification.md#final-functional-verification-mandatory): open Gitea in the Windows browser, log in as a normal user, create a new repository, clone it locally, commit a file, push it, and confirm the exact commit and file in the web interface. Record commands, exit statuses, results, and sanitized browser evidence. A failed push blocks completion: inspect server logs, resolve the cause, and repeat the test successfully. Ready Pods and a working home page do not satisfy this gate.
 
 ## Expected submission structure
 

@@ -73,6 +73,34 @@ Record the same user, repository URL without credentials, commit SHA, file check
 
 Do not use `minikube delete` for these tests. Wait for readiness and functional recovery between failures. Use bounded waits and document actual recovery times. A failed test must remain visible with its diagnosis and rerun result.
 
+## Final functional verification (mandatory)
+
+Run this gate **after the persistence tests**, against the final configuration you submit. A reviewer must see a successful end-to-end result before DEVOPS-001 is complete.
+
+1. Open the documented Gitea URL in the Windows browser. Log out of any administrator account and log in as a **normal, non-administrator user**; provision that user safely first if necessary.
+2. In the web interface, create a new, uniquely named **empty** repository owned by that user. Do not initialize it with a README. Copy the advertised clone URL without credentials; check that its host, port, and transport are reachable from your Git client.
+3. From a new working directory in WSL, run the following example after setting `GITEA_REPOSITORY_URL` to that credential-free URL. Use a prompt, credential helper, or SSH agent for authentication. Configure your Git author identity locally if it is not already set.
+
+```bash
+git clone "$GITEA_REPOSITORY_URL" final-functional-check
+cd final-functional-check
+git switch -c functional-check
+printf '%s\n' 'DEVOPS-001 final functional verification' > verification.txt
+git add verification.txt
+git commit -m "Verify DEVOPS-001 Git workflow"
+git push -u origin functional-check
+git rev-parse HEAD
+sha256sum verification.txt
+```
+
+Record each command's exit status immediately (for example, `echo "$?"`) and stop to investigate any failure. A warning that the newly created remote repository is empty is expected; a failed command is not. Use a unique directory if `final-functional-check` already exists.
+
+4. Refresh the repository in the browser and select the `functional-check` branch. Open the new commit and `verification.txt`; confirm the full commit SHA and file content match the local results. Capture sanitized evidence showing the signed-in user, repository, branch, commit, and file. Do not capture tokens, credential-helper contents, browser cookies, or authentication headers.
+5. Clone the same repository into another new directory, check out `functional-check`, and compare the commit SHA and file checksum. Record expected versus actual results, timestamps, configuration/submission SHA, and the credential-free repository URL.
+6. If push or any other operation fails, retain its exit status and error excerpt, correlate its timestamp with Gitea current/previous container logs and PostgreSQL logs as relevant, and inspect Service endpoints and storage events. Correct the cause through your documented configuration workflow, rerun this gate, and retain both failed and successful evidence. Do not mark DEVOPS-001 complete with an unresolved failure.
+
+A Git client decoding error or HTTP 500 is a symptom, not a root-cause diagnosis. Identify which server handled the operation and what it logged. Keep investigation evidence sanitized; do not delete persistent data or disable functionality simply to make the error disappear. Single-replica operation remains sufficient for this assignment. Application-level high availability is outside its 12–18-hour scope.
+
 ## Lifecycle and data ownership
 
 | Operation | Expected boundary and risk |
