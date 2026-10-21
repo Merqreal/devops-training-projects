@@ -85,3 +85,11 @@ Only after mandatory acceptance passes: ingress and local DNS; TLS with a local 
 ## Review process
 
 Expect a clean deployment, a second Terraform plan, an authenticated Git demonstration, and live persistence checks. Explain why each data path survives each tested event. Reviewer evaluation material is maintained separately from the published site.
+
+## Advanced follow-up
+
+After successfully completing DEVOPS-001, an optional advanced challenge may be assigned by your reviewer.
+
+This challenge builds on your existing deployment and introduces additional reliability and infrastructure engineering requirements. It is separate from the original assignment's workload.
+
+Contact your reviewer after your original submission has been accepted to receive the follow-up instructions.

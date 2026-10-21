@@ -75,13 +75,17 @@ Do not use `minikube delete` for these tests. Wait for readiness and functional 
 
 ## Final functional verification (mandatory)
 
-Run this gate **after the persistence tests**, against the final configuration you submit. A reviewer must see a successful end-to-end result before DEVOPS-001 is complete.
+Run this gate **after deployment and persistence verification**, against the **final Terraform-deployed Gitea environment** and configuration you submit. A reviewer must see a successful end-to-end result before DEVOPS-001 is complete. Healthy Pods or an accessible home page cannot substitute for this test.
 
-1. Open the documented Gitea URL in the Windows browser. Log out of any administrator account and log in as a **normal, non-administrator user**; provision that user safely first if necessary.
-2. In the web interface, create a new, uniquely named **empty** repository owned by that user. Do not initialize it with a README. Copy the advertised clone URL without credentials; check that its host, port, and transport are reachable from your Git client.
-3. From a new working directory in WSL, run the following example after setting `GITEA_REPOSITORY_URL` to that credential-free URL. Use a prompt, credential helper, or SSH agent for authentication. Configure your Git author identity locally if it is not already set.
+1. Using the explicit context and namespace from [command conventions](#command-conventions), confirm that Gitea and PostgreSQL Pods are Ready, inspect their Services and Ready endpoints, and verify connectivity through the intended paths. Check Gitea through your documented local access method and authenticated PostgreSQL connectivity from the application network path. A Service existing is not evidence of reachability; keep PostgreSQL internal rather than exposing it to your workstation.
+2. Open the documented Gitea URL in the Windows browser. Log out of any administrator account and log in as a **normal, non-administrator user**; provision that user safely first if necessary.
+3. In the web interface, create a new, uniquely named **empty** repository owned by that user. Do not initialize it with a README. Copy its advertised **HTTP or SSH clone URL** without credentials; check the reachable host, port and chosen transport.
+4. From a new working directory in the local WSL development environment, use the example below. Replace the placeholder URL with the copied URL; for SSH, replace the entire value with the advertised SSH URL. Authenticate using a prompt, credential helper, or SSH agent. Configure your local Git author identity if needed.
+
+Run **one command at a time**, immediately record its exit status with `echo "$?"` before executing the next command, and stop to investigate any nonzero result. Record each command and its result, not just the last exit status of the block. These examples use the explicit test branch `functional-check` rather than relying on the repository's default branch.
 
 ```bash
+GITEA_REPOSITORY_URL='http://localhost:3000/USER/REPOSITORY.git'
 git clone "$GITEA_REPOSITORY_URL" final-functional-check
 cd final-functional-check
 git switch -c functional-check
@@ -93,13 +97,46 @@ git rev-parse HEAD
 sha256sum verification.txt
 ```
 
-Record each command's exit status immediately (for example, `echo "$?"`) and stop to investigate any failure. A warning that the newly created remote repository is empty is expected; a failed command is not. Use a unique directory if `final-functional-check` already exists.
+A warning that the new remote repository is empty is expected. Use unique local directory names if these already exist; do not overwrite an earlier attempt.
 
-4. Refresh the repository in the browser and select the `functional-check` branch. Open the new commit and `verification.txt`; confirm the full commit SHA and file content match the local results. Capture sanitized evidence showing the signed-in user, repository, branch, commit, and file. Do not capture tokens, credential-helper contents, browser cookies, or authentication headers.
-5. Clone the same repository into another new directory, check out `functional-check`, and compare the commit SHA and file checksum. Record expected versus actual results, timestamps, configuration/submission SHA, and the credential-free repository URL.
-6. If push or any other operation fails, retain its exit status and error excerpt, correlate its timestamp with Gitea current/previous container logs and PostgreSQL logs as relevant, and inspect Service endpoints and storage events. Correct the cause through your documented configuration workflow, rerun this gate, and retain both failed and successful evidence. Do not mark DEVOPS-001 complete with an unresolved failure.
+5. Refresh the repository in the browser and select `functional-check`. Open the pushed commit and `verification.txt`; compare the full commit SHA and file content with the local results. Capture sanitized evidence showing the signed-in user, repository, branch, commit, and file. Exclude tokens, credential-helper contents, cookies, and authentication headers.
+6. Return to the parent working directory, clone that branch into a **fresh directory**, and verify the same commit SHA, file content and checksum. Record exit statuses for these commands too:
 
-A Git client decoding error or HTTP 500 is a symptom, not a root-cause diagnosis. Identify which server handled the operation and what it logged. Keep investigation evidence sanitized; do not delete persistent data or disable functionality simply to make the error disappear. Single-replica operation remains sufficient for this assignment. Application-level high availability is outside its 12–18-hour scope.
+```bash
+cd ..
+git clone --branch functional-check "$GITEA_REPOSITORY_URL" final-functional-check-fresh
+git -C final-functional-check-fresh rev-parse HEAD
+cat final-functional-check-fresh/verification.txt
+sha256sum final-functional-check-fresh/verification.txt
+```
+
+7. Submit a dated expected-versus-actual record: final configuration/submission SHA, Pod/Service reachability checks, normal-user browser login and repository creation evidence, credential-free clone URL, command transcript with exit statuses, full commit SHA, file checksum, browser confirmation, and fresh-clone comparison. Preserve any failed attempt, its investigation and correction, and a successful repeat of the complete workflow.
+
+**Completion gate:** normal-user login, repository creation, clone, commit, push, browser confirmation and the fresh-clone comparison must all succeed. Any earlier failure must be investigated, corrected and successfully retested. Do not mark DEVOPS-001 complete while a failure remains unresolved. Single-replica operation remains sufficient; advanced availability work is outside its 12–18-hour scope.
+
+### Investigating a rejected push or internal-hook authentication error
+
+A real reviewer test reported the following client failure (the `main` branch below belongs to that incident, not the example test branch):
+
+```text
+remote: error: Internal Server Error Decoding Failed
+! [remote rejected] main -> main (pre-receive hook declined)
+```
+
+The corresponding Gitea server log recorded an internal hook request and authentication rejection. The repository path is anonymized here:
+
+```text
+POST /api/internal/hook/pre-receive/USER/REPOSITORY
+403 Forbidden @ private.authInternal
+```
+
+Investigation found that the running web server and Git hook both referenced `/data/gitea/conf/app.ini`, but the file's modification timestamp was later than the web process's startup time. This is consistent with a **possible difference in the internal authentication token loaded by the long-running server and the later hook process**. Matching paths and timestamps alone do **not** establish which values were loaded or prove the exact root cause. This incident is supplied reviewer evidence, not a failure reproduced during portal authoring.
+
+- Correlate the push timestamp, repository, serving Pod/container and restart history with Gitea current/previous logs using the [diagnostic commands](#command-conventions). Inspect the internal pre-receive HTTP response and authentication message; a generic client decoding error alone does not identify the cause. Check PostgreSQL logs, endpoints and storage events where relevant.
+- Inspect the web process's configured path and the repository hook's Gitea invocation, including any `--config` argument, and confirm the actual file/mount they resolve to. A shared pathname does not prove identical file contents across containers or over time. Compare the **web process startup time**, not merely Pod creation, with file modification metadata and the deployment/change timeline.
+- Trace `[security] INTERNAL_TOKEN` to its persistent authoritative configuration or Secret reference, including chart initialization, mounted configuration and environment-derived overrides. Investigate whether startup or later deployment changes regenerated or rewrote configuration after the server loaded it. Assess consistency locally through the documented secret-handling workflow; record only non-secret findings. Do not publish the token, full configuration, process environment or secret-bearing command arguments. Consult the [Gitea 1.27 security configuration contract](https://docs.gitea.com/1.27/administration/config-cheat-sheet/#security-security), checked on 2026-10-21.
+- Correct the demonstrated configuration issue through Terraform, Helm, or your documented deployment/bootstrap workflow, then perform any required controlled rollout so the server and hooks use the intended persistent configuration. Preserve evidence supporting the correction; recovery alone does not retrospectively prove the original hypothesis. Do not disable Git hooks, delete repository data, remove LevelDB lock files, or regenerate secrets blindly.
+- Repeat the **entire final functional verification**, including normal-user login, new repository, clone, commit, push, browser confirmation and fresh clone. Keep both the failed observation and the successful retest with sanitized server-side evidence.
 
 ## Lifecycle and data ownership
 
