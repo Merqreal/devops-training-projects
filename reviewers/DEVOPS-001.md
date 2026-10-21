@@ -52,3 +52,11 @@ Ask why Terraform can plan only after cluster availability, how both providers s
 7. Stop/start the same Minikube profile, restore forwarding, repeat assertions and push a second commit. Record actual times/errors.
 8. Obtain a no-change second plan after recovery. Review cleanup behavior and data retention without requiring destructive loss testing. Explain deletion risk before any voluntary teardown.
 9. Report each gate as passed, failed, or not executed. Keep sanitized review results separate from the published assignment.
+
+## Final baseline functional gate and follow-up release
+
+For assignment version 2.0.0, observe a fresh final workflow after persistence testing: a non-admin user signs in through the browser, creates a new empty repository, clones it, commits and pushes a marker, and verifies that exact branch/commit/file in the browser and in a second fresh clone. Require dated commands, exit statuses, commit SHA, checksum and sanitized browser evidence. Any failed push blocks baseline acceptance until server-log investigation, configuration correction and successful retest are recorded.
+
+Multiple Ready Pods do not establish working Git hosting. A successful authenticated push plus matching browser/clone content is the minimum functional gate; do not add HA infrastructure requirements to the original assignment or change its 12–18-hour estimate.
+
+Only after accepting every baseline gate, use the manual eligibility record and learner-handout handoff in [DEVOPS-001-HA reviewer notes](DEVOPS-001-HA.md). An attempted but unresolved functional failure is not completion and must not trigger release. Keep the advanced follow-up absent from public navigation/catalog/search. Both evaluation notes and handout source remain discoverable in this public Git repository; release controls the review process, not access to the source.

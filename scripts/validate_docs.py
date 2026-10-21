@@ -3,7 +3,6 @@ from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 import json
-import re
 import sys
 import tomllib
 
@@ -47,15 +46,11 @@ except ValueError as exc:
     errors.append(str(exc))
     projects = []
 
-# Fingerprints catch copied reviewer prose even if its sentinel is stripped.
-reviewer_fingerprints = set()
-for path in (ROOT / 'reviewers').glob('*.md'):
-    text = path.read_text()
-    require('REVIEWER_ONLY_DO_NOT_PUBLISH' in text, f'Missing reviewer marker: {path}')
-    for line in text.splitlines():
-        words = re.findall(r'\w+', line.lower())
-        if len(words) >= 16:
-            reviewer_fingerprints.add(' '.join(words[:16]))
+# Include nested handouts; copied titles/IDs must not enter pages or search.
+from reviewer_isolation import load_reviewer_material, publication_leaks
+
+reviewer_fingerprints, hidden_labels, reviewer_errors = load_reviewer_material(ROOT)
+errors.extend(reviewer_errors)
 
 class Page(HTMLParser):
     def __init__(self, text):
@@ -106,12 +101,8 @@ for tree in (DOCS, SITE):
             text = path.read_text()
         except UnicodeDecodeError:
             continue
-        require('REVIEWER_ONLY_DO_NOT_PUBLISH' not in text, f'Leaked reviewer marker: {path}')
-        normalized = ' '.join(re.findall(r'\w+', re.sub(r'<[^>]+>', ' ', text).lower()))
-        for fingerprint in reviewer_fingerprints:
-            if fingerprint in normalized:
-                errors.append(f'Reviewer prose leaked: {path}')
-                break
+        for error in publication_leaks(text, reviewer_fingerprints, hidden_labels):
+            errors.append(f'{error}: {path}')
 
 if errors:
     print('\n'.join(errors), file=sys.stderr)

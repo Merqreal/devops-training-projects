@@ -88,6 +88,8 @@ Record deprecation reason and replacement ID when one exists; never silently red
 
 ## Versioning conventions
 
+Reviewer-released follow-ups are handouts under `reviewers/followups/`, with separate evaluation notes under `reviewers/`. They extend a permanent project using a display suffix, not a new schema-v1 project ID or catalog definition. They do not enter `docs/`, navigation, generated indexes, or search assets. A reviewer checks the base completion evidence and records a manual decision before handing over only the learner brief through the agreed review channel. This implements no authentication, automatic unlock, or confidentiality: all tracked source remains visible to repository readers. Publication validation scans nested reviewer material, including follow-up identifiers and titles. Follow-up effort is separate from the base estimate.
+
 The permanent ID identifies the assignment; `version` identifies its requirements. Use patch increments for clarifications preserving acceptance criteria, minor increments for backward-compatible added guidance or optional work, and major increments for changed mandatory outcomes, stack, or acceptance behavior. Tool pins do not automatically decide the version bump: assess their effect on learners.
 
 Git commits and tags preserve history; learners submit the project ID, assignment version, and their solution commit SHA. Before releasing updates, document material changes in the project overview or a linked changelog page declared in `pages`. Future multi-version rendering can use Git tags without duplicating the current assignment now. Schema changes are separate from assignment versions: introduce a new schema contract plus an explicit metadata migration and update validation before adopting it.

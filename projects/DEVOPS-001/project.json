@@ -2,7 +2,7 @@
   "schema_version": 1,
   "id": "DEVOPS-001",
   "title": "Self-Hosted Gitea Platform",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "primary_domain": "kubernetes",
   "domains": [
     "kubernetes",
