@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "id": "DEVOPS-003",
+  "title": "Build a Reusable Private AWS Application Hosting Platform",
+  "version": "1.0.0",
+  "primary_domain": "aws",
+  "domains": [
+    "aws",
+    "kubernetes",
+    "infrastructure-as-code",
+    "networking",
+    "security"
+  ],
+  "difficulty": "advanced",
+  "estimated_effort": {
+    "min": 24,
+    "max": 36,
+    "unit": "hours"
+  },
+  "technologies": [
+    "AWS",
+    "Terraform",
+    "Amazon VPC",
+    "Amazon EKS",
+    "Amazon ECR",
+    "IAM",
+    "Kubernetes",
+    "Helm",
+    "AWS Load Balancer Controller",
+    "Route 53",
+    "ACM"
+  ],
+  "tags": [
+    "aws",
+    "terraform",
+    "eks",
+    "ecr",
+    "iam",
+    "private-networking",
+    "alb",
+    "route-53",
+    "acm",
+    "platform-engineering"
+  ],
+  "prerequisites": {
+    "skills": [
+      "Terraform modules and remote state",
+      "Kubernetes and Helm operations",
+      "AWS networking and IAM trust policies",
+      "Containers, DNS, TLS and security verification"
+    ],
+    "tools": [
+      "Approved AWS Sandbox and IAM Identity Center access",
+      "Reviewer-approved domain and corporate egress CIDRs",
+      "Approved S3 state backend",
+      "Terraform, AWS CLI v2, kubectl, Helm, Docker, jq, dig, curl and OpenSSL"
+    ],
+    "projects": []
+  },
+  "learning_objectives": [
+    "Design a reusable hosting platform with private compute and controlled ingress",
+    "Provision and verify AWS infrastructure with Terraform and least-privilege identities",
+    "Onboard independent applications using one shared cluster and ALB",
+    "Prove corporate-only HTTPS access, DNS ownership and valid TLS",
+    "Destroy temporary resources and reconcile incremental costs"
+  ],
+  "status": "active",
+  "content_path": "projects/aws/private-application-platform",
+  "pages": [
+    {
+      "title": "Assignment",
+      "file": "index.md"
+    },
+    {
+      "title": "Verification & teardown",
+      "file": "verification.md"
+    },
+    {
+      "title": "Versions, costs & upstream contracts",
+      "file": "versions-and-costs.md"
+    }
+  ]
+}
