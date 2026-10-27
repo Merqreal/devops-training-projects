@@ -4,6 +4,21 @@
 
 Projects are grouped by primary technical domain. Difficulty is a filterable metadata field, never a directory.
 
+## Aws
+
+| ID | Project | Difficulty | Effort | Lifecycle | Technologies |
+| --- | --- | --- | --- | --- | --- |
+| DEVOPS-003 | [Build a Reusable Private AWS Application Hosting Platform](aws/private-application-platform/index.md) | advanced | 24–36 hours | active | AWS, Terraform, Amazon VPC, Amazon EKS, Amazon ECR, IAM, Kubernetes, Helm, AWS Load Balancer Controller, Route 53, ACM |
+
+### DEVOPS-003 learning objectives
+
+- Design a reusable hosting platform with private compute and controlled ingress
+- Provision and verify AWS infrastructure with Terraform and least-privilege identities
+- Onboard independent applications using one shared cluster and ALB
+- Prove corporate-only HTTPS access, DNS ownership and valid TLS
+- Destroy temporary resources and reconcile incremental costs
+
+**Tags:** aws, terraform, eks, ecr, iam, private-networking, alb, route-53, acm, platform-engineering. **Domains:** aws, kubernetes, infrastructure-as-code, networking, security.
 ## Build And Release Engineering
 
 | ID | Project | Difficulty | Effort | Lifecycle | Technologies |

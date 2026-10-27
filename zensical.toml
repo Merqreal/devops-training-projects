@@ -11,6 +11,13 @@ nav = [
   { "Getting started" = "getting-started.md" },
   { "Projects" = [
     { "Project catalog" = "projects/index.md" },
+    { "Aws" = [
+      { "DEVOPS-003 · Build a Reusable Private AWS Application Hosting Platform" = [
+        { "Assignment" = "projects/aws/private-application-platform/index.md" },
+        { "Verification & teardown" = "projects/aws/private-application-platform/verification.md" },
+        { "Versions, costs & upstream contracts" = "projects/aws/private-application-platform/versions-and-costs.md" }
+      ] }
+    ] },
     { "Build And Release Engineering" = [
       { "DEVOPS-002 · Repair, Build and Containerize a Java Application" = [
         { "Assignment" = "projects/build-and-release-engineering/java-inventory/index.md" }
