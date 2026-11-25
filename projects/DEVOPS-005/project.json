@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "id": "DEVOPS-005",
+  "title": "Automated Pull Request Security Gates with GitHub Actions",
+  "version": "1.0.0",
+  "primary_domain": "devsecops",
+  "domains": ["devsecops", "ci-cd", "security"],
+  "difficulty": "advanced",
+  "estimated_effort": {"min": 24, "max": 40, "unit": "hours"},
+  "technologies": ["GitHub Actions", "Black Duck SCA", "Coverity", "SonarQube"],
+  "tags": ["github-actions", "security", "sca", "sast", "pull-requests", "aws"],
+  "prerequisites": {
+    "skills": ["GitHub Actions and pull request protection", "Secure CI and dependency management", "Java and JavaScript build fundamentals"],
+    "tools": ["Git and GitHub account", "Eligible scanner access", "AWS Sandbox and Terraform if using CodeBuild"],
+    "projects": []
+  },
+  "learning_objectives": ["Build reusable independent pull request security gates", "Assess scanner eligibility and complementary coverage", "Demonstrate fail-closed merge protection and remediation", "Explain trust boundaries and secure runner operation"],
+  "status": "active",
+  "content_path": "projects/devsecops/pull-request-security-gates",
+  "pages": [
+    {"title": "Assignment", "file": "index.md"},
+    {"title": "Verification", "file": "verification.md"},
+    {"title": "Versions, licensing & costs", "file": "versions-and-costs.md"}
+  ]
+}

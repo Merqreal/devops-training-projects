@@ -23,6 +23,13 @@ nav = [
         { "Assignment" = "projects/build-and-release-engineering/java-inventory/index.md" }
       ] }
     ] },
+    { "Devsecops" = [
+      { "DEVOPS-005 · Automated Pull Request Security Gates with GitHub Actions" = [
+        { "Assignment" = "projects/devsecops/pull-request-security-gates/index.md" },
+        { "Verification" = "projects/devsecops/pull-request-security-gates/verification.md" },
+        { "Versions, licensing & costs" = "projects/devsecops/pull-request-security-gates/versions-and-costs.md" }
+      ] }
+    ] },
     { "Kubernetes" = [
       { "DEVOPS-001 · Self-Hosted Gitea Platform" = [
         { "Assignment" = "projects/kubernetes/self-hosted-gitea/index.md" },

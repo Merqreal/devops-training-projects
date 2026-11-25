@@ -33,6 +33,20 @@ Projects are grouped by primary technical domain. Difficulty is a filterable met
 - Verify health and document repeatable troubleshooting
 
 **Tags:** java, maven, spring-boot, docker, docker-compose, troubleshooting. **Domains:** build-and-release-engineering, containers.
+## Devsecops
+
+| ID | Project | Difficulty | Effort | Lifecycle | Technologies |
+| --- | --- | --- | --- | --- | --- |
+| DEVOPS-005 | [Automated Pull Request Security Gates with GitHub Actions](devsecops/pull-request-security-gates/index.md) | advanced | 24–40 hours | active | GitHub Actions, Black Duck SCA, Coverity, SonarQube |
+
+### DEVOPS-005 learning objectives
+
+- Build reusable independent pull request security gates
+- Assess scanner eligibility and complementary coverage
+- Demonstrate fail-closed merge protection and remediation
+- Explain trust boundaries and secure runner operation
+
+**Tags:** github-actions, security, sca, sast, pull-requests, aws. **Domains:** devsecops, ci-cd, security.
 ## Kubernetes
 
 | ID | Project | Difficulty | Effort | Lifecycle | Technologies |
